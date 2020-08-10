@@ -28,13 +28,18 @@ describe Oystercard do
 
 describe '#touch_in' do
   it 'responds to touch in method' do
-    expect(subject).to respond_to(:touch_in)
+    expect(subject).to respond_to(:touch_in).with(1).argument
   end
 
   it "Trow error if the balance is less then 1£" do
-    expect { subject.touch_in }.to raise_error "Insufficient amount"
+    expect { subject.touch_in("station") }.to raise_error "Insufficient amount"
   end
 
+  it "Will add the entry station to our journey list" do
+    subject.top_up(10) 
+    station = double("Old street")
+    expect(subject.touch_in(station)).to eq station   
+  end
 
 end
 
@@ -47,6 +52,8 @@ describe '#touch_out' do
     subject.top_up(10)
     expect { subject.touch_out }.to change{ subject.balance }.by( -Oystercard::MINIMUM_AMOUNT)
   end
+
+
 end
 
 describe "#in_journey?" do
@@ -56,10 +63,11 @@ describe "#in_journey?" do
 
   it 'checks if user is in journey' do
     subject.top_up(10)
-    subject.touch_in
+    subject.touch_in("station")
     expect(subject.in_journey?).to eq(true)
   end
 end
 
 
 end
+ 
