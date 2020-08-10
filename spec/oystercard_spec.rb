@@ -36,9 +36,9 @@ describe '#touch_in' do
   end
 
   it "Will add the entry station to our journey list" do
-    subject.top_up(10) 
+    subject.top_up(10)
     station = double("Old street")
-    expect(subject.touch_in(station)).to eq station   
+    expect(subject.touch_in(station)).to eq station
   end
 
 end
@@ -50,7 +50,7 @@ describe '#touch_out' do
 
   it 'checks if the charge is being made' do
     subject.top_up(10)
-    expect { subject.touch_out }.to change{ subject.balance }.by( -Oystercard::MINIMUM_AMOUNT)
+    expect { subject.touch_out("station") }.to change{ subject.balance }.by( -Oystercard::MINIMUM_AMOUNT)
   end
 
 
@@ -68,6 +68,18 @@ describe "#in_journey?" do
   end
 end
 
+it 'checks that the card has an empty list of journeys by default' do
+  expect(subject.journey_list).to eq([])
+end
+
+it 'creates a journey when user touches in and out' do
+  subject.top_up(10)
+  station = double("Old street")
+  station2 = double("Westminster")
+  subject.touch_in(station)
+  subject.touch_out(station2)
+  expect(subject.journey_list.count).to eq(1)
+end
+
 
 end
- 
