@@ -26,16 +26,40 @@ describe Oystercard do
 
   end
 
-  describe "#deduct" do 
+  describe "#deduct" do
     it "Oystercard respond to deduct" do
       expect(subject).to respond_to(:deduct).with(1).argument
     end
 
-    it "Remove 10£ from the total amount" do 
+    it "Remove 10£ from the total amount" do
       subject.top_up(11)
       expect(subject.deduct(10)).to eq 1
     end
 
   end
+
+describe '#touch_in' do
+  it 'responds to touch in method' do
+    expect(subject).to respond_to(:touch_in)
+  end
+end
+
+describe '#touch_out' do
+  it 'responds to touch out method' do
+    expect(subject).to respond_to(:touch_out)
+  end
+end
+
+describe "#in_journey?" do
+  it 'responds to in journey? method' do
+    expect(subject).to respond_to(:in_journey?)
+  end
+
+  it 'checks if user is in journey' do
+    subject.touch_in
+    expect(subject.in_journey?).to eq(true)
+  end
+end
+
 
 end
