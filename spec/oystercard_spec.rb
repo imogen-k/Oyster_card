@@ -42,6 +42,12 @@ describe '#touch_in' do
   it 'responds to touch in method' do
     expect(subject).to respond_to(:touch_in)
   end
+
+  it "Trow error if the balance is less then 1£" do
+    expect { subject.touch_in }.to raise_error "Insufficient amount"
+  end
+
+
 end
 
 describe '#touch_out' do
@@ -56,6 +62,7 @@ describe "#in_journey?" do
   end
 
   it 'checks if user is in journey' do
+    subject.top_up(10)
     subject.touch_in
     expect(subject.in_journey?).to eq(true)
   end
