@@ -1,6 +1,6 @@
-## Oystercard
+# Oystercard
 
-# User stories
+## User stories
 
 ```
 In order to use public transport
