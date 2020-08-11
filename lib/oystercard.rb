@@ -23,6 +23,7 @@ class Oystercard
 
   def touch_in(station)
     fail "Insufficient amount" if @balance < MINIMUM_AMOUNT
+
     @in_use = true
     @entry_station = station
   end
